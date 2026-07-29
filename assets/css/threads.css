@@ -415,8 +415,10 @@
 
 .wrp {
     width: 800px;
+    max-width: calc(100vw - 16px);
     margin: 0 auto;
     padding-top: 40px;
+    box-sizing: border-box;
 }
 
 header,footer {
