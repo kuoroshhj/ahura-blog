@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>!function(){var e=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',e||'dark')}();</script>
 <title>{{ TITLE }}</title>
 <meta name="description" content="{{ DESC }}" />
 <meta property="og:title" content="{{ TITLE }}" />
@@ -13,13 +14,14 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ TITLE }}" />
 <meta name="twitter:description" content="{{ DESC }}" />
+<link rel="canonical" href="{{ OG_URL }}" />
 <link rel="stylesheet" href="{{ BASE }}/assets/css/structure.css" />
 <link rel="stylesheet" href="{{ BASE }}/assets/css/style.css" />
 <link rel="stylesheet" href="{{ BASE }}/assets/css/threads.css" />
 <link rel="alternate" type="application/rss+xml" title="Ahura — RSS Feed" href="{{ BASE }}/rss.xml" />
 <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ BASE }}/sitemap.xml" />
 </head>
-<body class="theme-dark">
+<body>
 {{ SVGS }}
 
 <header class="flW aliI-CE jusCo-SP wrp">
@@ -58,36 +60,23 @@
 <script src="{{ BASE }}/assets/js/search.js"></script>
 <script>
 function toggleTheme() {
-  const body = document.body;
-  const html = document.documentElement;
-  const icon = document.querySelector('#theme-icon use');
-  if (body.classList.contains('theme-dark')) {
-    body.classList.remove('theme-dark');
+  var html = document.documentElement;
+  var icon = document.querySelector('#theme-icon use');
+  var isDark = html.getAttribute('data-theme') === 'dark';
+  if (isDark) {
     html.setAttribute('data-theme', 'light');
-    icon.setAttribute('href', '#_MOON_ICON');
+    if (icon) icon.setAttribute('href', '#_MOON_ICON');
     localStorage.setItem('theme', 'light');
   } else {
-    body.classList.add('theme-dark');
     html.setAttribute('data-theme', 'dark');
-    icon.setAttribute('href', '#_SUN_ICON');
+    if (icon) icon.setAttribute('href', '#_SUN_ICON');
     localStorage.setItem('theme', 'dark');
   }
 }
-(function() {
-  const saved = localStorage.getItem('theme');
-  const body = document.body;
-  const html = document.documentElement;
-  const icon = document.querySelector('#theme-icon use');
-  if (!icon) return;
-  if (saved === 'light') {
-    body.classList.remove('theme-dark');
-    html.setAttribute('data-theme', 'light');
-    icon.setAttribute('href', '#_MOON_ICON');
-  } else {
-    body.classList.add('theme-dark');
-    html.setAttribute('data-theme', 'dark');
-    icon.setAttribute('href', '#_SUN_ICON');
-  }
+(function(){
+  var t = localStorage.getItem('theme') || 'dark';
+  var icon = document.querySelector('#theme-icon use');
+  if (icon) icon.setAttribute('href', t === 'dark' ? '#_SUN_ICON' : '#_MOON_ICON');
 })();
 </script>
 </body>

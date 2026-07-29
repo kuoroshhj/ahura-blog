@@ -1,0 +1,2 @@
+# Ahura Blog — Python dependencies
+markdown>=3.5

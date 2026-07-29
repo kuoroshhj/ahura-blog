@@ -7,7 +7,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-from parser import read_file, write_file, parse_frontmatter, convert_custom_boxes, md_to_html
+from parser import read_file, write_file, parse_frontmatter, convert_custom_boxes, md_to_html, add_lazy_loading
 from templating import (
     tag_slug, render_tags_html, render_thread_item, build_tag_index,
     fill, generate_rss, generate_sitemap, generate_search_json,
@@ -524,6 +524,7 @@ def build_site():
         try:
             body_html = convert_custom_boxes(body)
             body_html = md_to_html(body_html)
+            body_html = add_lazy_loading(body_html)
         except Exception as exc:
             log.warning("⚠️  %s — خطا در تبدیل: %s. رد شد.", f.relative_to(CONTENT_DIR), exc)
             continue

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Ahura Blog — Markdown Parser & Frontmatter"""
 
+import logging
 import os
 import re
 from datetime import datetime
 from pathlib import Path
 import markdown
+
+logger = logging.getLogger("ahura")
 
 
 def read_file(path):
@@ -18,7 +21,7 @@ def write_file(path, content):
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f"  ✓ {path}")
+    logger.info("  ✓ %s", path)
 
 
 def parse_frontmatter(content, filepath=None):
@@ -113,3 +116,10 @@ def md_to_html(md_text):
         'markdown.extensions.md_in_html',
     ]
     return markdown.markdown(md_text, extensions=extensions)
+
+
+def add_lazy_loading(html):
+    """اضافه کردن loading=\\"lazy\\" و decoding=\\"async\\" به تگ‌های <img> فاقد lazy-load"""
+    html = re.sub(r'(?<=<img\s)(?!.*\bloading=)([^>]*)', r'\1 loading="lazy" ', html)
+    html = re.sub(r'(?<=<img\s)(?!.*\bdecoding=)([^>]*)', r'\1 decoding="async" ', html)
+    return html

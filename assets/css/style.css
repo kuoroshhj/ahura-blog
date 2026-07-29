@@ -142,24 +142,24 @@ footer.txt-C.wrp p a {
 }
 
 /* Dark mode overrides for dark theme */
-.theme-dark section.banner {
+[data-theme="dark"] section.banner {
   background: linear-gradient(135deg, #0d0d1a 0%, #111827 50%, #0a1a30 100%);
 }
 
-.theme-dark .banner .wrapper {
+[data-theme="dark"] .banner .wrapper {
   border-color: #1e1e3a;
 }
 
-.theme-dark .cta-button {
+[data-theme="dark"] .cta-button {
   background: #e94560;
   color: #fff;
 }
 
-.theme-dark .cta-button:hover {
+[data-theme="dark"] .cta-button:hover {
   background: #ff6b81;
 }
 
-.theme-dark .social-links a {
+[data-theme="dark"] .social-links a {
   background: #1e1e3a;
 }
 

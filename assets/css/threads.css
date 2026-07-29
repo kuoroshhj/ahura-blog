@@ -258,7 +258,7 @@
     }
 }
 
-.theme-dark {
+[data-theme="dark"] {
     --c-bg-page: #181a1b;
     --c-bg-header: #222526;
     --c-bg-light: #242728;
@@ -622,7 +622,7 @@ div#modal-media img {
     --box-title: #214d42;
 }
 
-.theme-dark .content details.box.info {
+[data-theme="dark"] .content details.box.info {
     --box-bg: #1d312d;
     --box-border: #36695d;
     --box-summary-bg: #24403a;
@@ -636,7 +636,7 @@ div#modal-media img {
     --box-title: #8a5a12;
 }
 
-.theme-dark .content details.box.warning {
+[data-theme="dark"] .content details.box.warning {
     --box-bg: #33281b;
     --box-border: #8e6a34;
     --box-summary-bg: #41311f;
@@ -650,7 +650,7 @@ div#modal-media img {
     --box-title: #8b2e2e;
 }
 
-.theme-dark .content details.box.error {
+[data-theme="dark"] .content details.box.error {
     --box-bg: #321f1f;
     --box-border: #7a4a4a;
     --box-summary-bg: #402727;
@@ -664,7 +664,7 @@ div#modal-media img {
     --box-title: #2f6b39;
 }
 
-.theme-dark .content details.box.bestPractice {
+[data-theme="dark"] .content details.box.bestPractice {
     --box-bg: #1f2e22;
     --box-border: #4d7d57;
     --box-summary-bg: #26392a;
@@ -678,7 +678,7 @@ div#modal-media img {
     --box-title: #2855a3;
 }
 
-.theme-dark .content details.box.project {
+[data-theme="dark"] .content details.box.project {
     --box-bg: #1d2633;
     --box-border: #4f6d9a;
     --box-summary-bg: #243045;
@@ -692,7 +692,7 @@ div#modal-media img {
     --box-title: #7a6518;
 }
 
-.theme-dark .content details.box.exercise {
+[data-theme="dark"] .content details.box.exercise {
     --box-bg: #302c1c;
     --box-border: #7f7440;
     --box-summary-bg: #3a3521;
@@ -808,12 +808,12 @@ code {
     color: #e65100;
 }
 
-.theme-dark .status-done {
+[data-theme="dark"] .status-done {
     background: #1b3d1b;
     color: #81c784;
 }
 
-.theme-dark .status-running {
+[data-theme="dark"] .status-running {
     background: #3d2e1b;
     color: #ffb74d;
 }
@@ -954,7 +954,7 @@ header div .svg-cont {
     line-height: 1.8;
 }
 
-.theme-dark .tag-badge {
+[data-theme="dark"] .tag-badge {
     background: #1e1e3a;
     color: #8888dd;
 }
