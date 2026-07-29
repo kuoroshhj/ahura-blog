@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Ahura Blog — Build Engine: site generation logic"""
 
+import logging
+import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -10,6 +12,13 @@ from templating import (
     tag_slug, render_tags_html, render_thread_item, build_tag_index,
     fill, generate_rss, generate_sitemap, generate_search_json,
 )
+
+# ─── logging ────────────────────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s  %(message)s",
+)
+log = logging.getLogger("ahura")
 
 # ─── paths ─────────────────────────────────────────────────────────────
 
@@ -22,7 +31,16 @@ ASSETS_DIR = BASE_DIR / "assets"
 # ─── site config ───────────────────────────────────────────────────────
 
 SITE_URL = "https://kuoroshhj.github.io/ahura-blog"
-BASE = "/ahura-blog"  # برای GitHub Pages subpath — برای ریشه دامنه "" بذار
+BASE = "/ahura-blog"  # برای GitHub Pages subpath
+
+# ترتیب دلخواه دسته‌بندی‌ها (تغییر بده به سلیقه خودت)
+CATEGORY_ORDER = ["عمومی", "برنامه‌نویسی", "تکنولوژی", "شخصی"]
+
+
+def get_description(body_html):
+    """استخراج توضیحات (حدود ۱۶۰ کاراکتر) از HTML بدن پست"""
+    clean = re.sub(r'<[^>]+>', '', body_html).strip()
+    return clean[:160].rsplit(' ', 1)[0] if len(clean) > 160 else clean
 
 
 # ─── helpers ───────────────────────────────────────────────────────────
@@ -66,7 +84,7 @@ def ensure_templates():
   <symbol id="_EDIT_ICON" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4A2 2 0 002 6v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121.0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
   <symbol id="_TAG_ICON" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
 </svg>''')
-        print("📝  svgs ساخته شد!")
+        log.info("📝  svgs ساخته شد!")
 
     if not (t / "base.html").exists():
         write_file(t / "base.html", '''<!doctype html>
@@ -283,7 +301,7 @@ function toggleTheme() {
 </div>
 </div>''')
 
-        print("📝  تمپلیت‌های پیش‌فرض ایجاد شدند!")
+        log.info("📝  تمپلیت‌های پیش‌فرض ایجاد شدند!")
 
 
 # ─── sample posts ──────────────────────────────────────────────────────
@@ -470,14 +488,14 @@ tags: "هدف, شخصی, ۲۰۲۶"
         fp = CONTENT_DIR / s['file']
         fp.parent.mkdir(parents=True, exist_ok=True)
         write_file(fp, s['content'])
-    print(f"   {len(samples)} پست نمونه ساخته شد!")
+    log.info("   %d پست نمونه ساخته شد!", len(samples))
 
 
 # ─── main build ────────────────────────────────────────────────────────
 
 def build_site():
-    print("🚀  Ahura Blog Generator — v3 (ماژولار + BASE_URL)")
-    print("=" * 50)
+    log.info("Ahura Blog Generator — v3 (ماژولار + BASE_URL)")
+    log.info("=" * 50)
 
     # Ensure templates exist
     ensure_templates()
@@ -490,17 +508,25 @@ def build_site():
     posts = []
     files = sorted(CONTENT_DIR.rglob('*.md'))
     if not files:
-        print("ℹ️  هیچ پستی نیست → می‌سازمشون ...")
+        log.info("ℹ️  هیچ پستی نیست → می‌سازمشون ...")
         _create_samples()
         files = sorted(CONTENT_DIR.rglob('*.md'))
 
     for f in files:
-        print(f"📄  {f.relative_to(CONTENT_DIR)}")
+        slug = f.relative_to(CONTENT_DIR).with_suffix('').as_posix().replace('/', '-')
+        log.info("📄  %s → slug: %s", f.relative_to(CONTENT_DIR), slug)
         raw = read_file(f)
-        meta, body = parse_frontmatter(raw, filepath=str(f))
-        body_html = convert_custom_boxes(body)
-        body_html = md_to_html(body_html)
-        slug = f.stem
+        try:
+            meta, body = parse_frontmatter(raw, filepath=str(f))
+        except Exception as exc:
+            log.warning("⚠️  %s — frontmatter خراب: %s. رد شد.", f.relative_to(CONTENT_DIR), exc)
+            continue
+        try:
+            body_html = convert_custom_boxes(body)
+            body_html = md_to_html(body_html)
+        except Exception as exc:
+            log.warning("⚠️  %s — خطا در تبدیل: %s. رد شد.", f.relative_to(CONTENT_DIR), exc)
+            continue
         meta['slug'] = slug
         posts.append(dict(meta=meta, body=body_html, slug=slug))
 
@@ -519,11 +545,18 @@ def build_site():
 
     # Safe keys for fill() — HTML content that must NOT be escaped
     RAW = {'SVGS', 'CONTENT', 'BASE', 'CATEGORIES', 'STATUS_BADGE',
-           'TAGS', 'BODY', 'PREV_LINK', 'NEXT_LINK', 'TAG_POSTS'}
+           'TAGS', 'BODY', 'PREV_LINK', 'NEXT_LINK', 'TAG_POSTS', 'DESC', 'OG_URL'}
+
+    # ── sort by category order ────────────────────────────────────
+    sorted_cats = sorted(
+        groups.keys(),
+        key=lambda c: (CATEGORY_ORDER.index(c) if c in CATEGORY_ORDER else 999, c)
+    )
 
     # ── build thread-list body ────────────────────────────────────
     list_items = ''
-    for cat_name, cat_posts in groups.items():
+    for cat_name in sorted_cats:
+        cat_posts = groups[cat_name]
         items = ''
         for idx, p in enumerate(cat_posts, 1):
             items += render_thread_item(p, idx, base=BASE, with_tags=True)
@@ -556,6 +589,8 @@ def build_site():
     # ── build detail pages ────────────────────────────────────────
     for i, p in enumerate(posts):
         m = p['meta']
+        desc_text = get_description(p['body'])
+        og_url = f"{SITE_URL}/threads/{p['slug']}/"
         status_cls = 'done' if m['status'] == 'done' else 'running'
         status_txt = '✅ انجام شده' if m['status'] == 'done' else '⏳ در حال انجام'
         tags_html = render_tags_html(m['tags'], base=BASE)
@@ -591,6 +626,8 @@ def build_site():
             BASE=BASE,
             SVGS=tpl['svgs'],
             TITLE=f"{m['title']} — Ahura",
+            DESC=desc_text,
+            OG_URL=og_url,
             CONTENT=detail_body,
             YEAR=year_str,
         )
@@ -602,6 +639,8 @@ def build_site():
         BASE=BASE,
         SVGS=tpl['svgs'],
         TITLE="Ahura — وبلاگ شخصی",
+        DESC="وبلاگ شخصی Ahura — برنامه‌نویسی، هوش مصنوعی و پروژه‌های شخصی",
+        OG_URL=SITE_URL,
         CONTENT=home_body,
         YEAR=year_str,
     ))
@@ -611,6 +650,8 @@ def build_site():
         BASE=BASE,
         SVGS=tpl['svgs'],
         TITLE="نوشته‌ها — Ahura",
+        DESC="همه نوشته‌های وبلاگ Ahura مرتب شده بر اساس دسته‌بندی",
+        OG_URL=f"{SITE_URL}/threads/",
         CONTENT=list_body,
         YEAR=year_str,
     ))
@@ -635,6 +676,8 @@ def build_site():
             BASE=BASE,
             SVGS=tpl['svgs'],
             TITLE="برچسب‌ها — Ahura",
+            DESC="همه برچسب‌های استفاده شده در وبلاگ Ahura",
+            OG_URL=f"{SITE_URL}/tags/",
             CONTENT=tags_body,
             YEAR=year_str,
         ))
@@ -655,23 +698,25 @@ def build_site():
             BASE=BASE,
             SVGS=tpl['svgs'],
             TITLE=f"#{tag_name} — Ahura",
+            DESC=f"پست‌های برچسب #{tag_name} در وبلاگ Ahura",
+            OG_URL=f"{SITE_URL}/tags/{slug}/",
             CONTENT=tag_detail_body,
             YEAR=year_str,
         ))
 
     # ── RSS ──────────────────────────────────────────────────────
-    print("\n📡  تولید RSS Feed …")
+    log.info("📡  تولید RSS Feed …")
     write_file(OUTPUT_DIR / "rss.xml", generate_rss(posts, SITE_URL))
-    print("   → output/rss.xml")
+    log.info("   → output/rss.xml")
 
     # ── Sitemap ──────────────────────────────────────────────────
-    print("\n🗺️  تولید Sitemap.xml …")
+    log.info("🗺️  تولید Sitemap.xml …")
     write_file(OUTPUT_DIR / "sitemap.xml", generate_sitemap(posts, tag_index, SITE_URL))
     write_file(OUTPUT_DIR / "robots.txt",
                "User-agent: *\nAllow: /\nSitemap: " + SITE_URL + "/sitemap.xml\n")
 
     # ── Search JSON ──────────────────────────────────────────────
-    print("\n🔍  تولید search.json …")
+    log.info("🔍  تولید search.json …")
     write_file(OUTPUT_DIR / "search.json", generate_search_json(posts, base=BASE))
 
     # ── Search Page ──────────────────────────────────────────────
@@ -679,25 +724,27 @@ def build_site():
         BASE=BASE,
         SVGS=tpl['svgs'],
         TITLE="جستجو — Ahura",
+        DESC="جستجوی نوشته‌های وبلاگ Ahura",
+        OG_URL=f"{SITE_URL}/search/",
         CONTENT=tpl['search'],
         YEAR=year_str,
     ))
 
     # ── copy assets ──────────────────────────────────────────────
-    print("\n📦  کپی assets …")
+    log.info("📦  کپی assets …")
     copy_assets()
 
-    print(f"\n✨  خروجی در: {OUTPUT_DIR}  ({len(posts)} پست — {len(tag_index)} تگ)")
-    print(f"   index      → {OUTPUT_DIR / 'index.html'}")
-    print(f"   threads    → {OUTPUT_DIR / 'threads' / 'index.html'}")
-    print(f"   tags       → {OUTPUT_DIR / 'tags' / 'index.html'}")
-    print(f"   search     → {OUTPUT_DIR / 'search' / 'index.html'}")
-    print(f"   rss        → {OUTPUT_DIR / 'rss.xml'}")
-    print(f"   sitemap    → {OUTPUT_DIR / 'sitemap.xml'}")
-    print(f"   search.json→ {OUTPUT_DIR / 'search.json'}")
+    log.info("✨  خروجی در: %s  (%d پست — %d تگ)", OUTPUT_DIR, len(posts), len(tag_index))
+    log.info("   index      → %s", OUTPUT_DIR / 'index.html')
+    log.info("   threads    → %s", OUTPUT_DIR / 'threads' / 'index.html')
+    log.info("   tags       → %s", OUTPUT_DIR / 'tags' / 'index.html')
+    log.info("   search     → %s", OUTPUT_DIR / 'search' / 'index.html')
+    log.info("   rss        → %s", OUTPUT_DIR / 'rss.xml')
+    log.info("   sitemap    → %s", OUTPUT_DIR / 'sitemap.xml')
+    log.info("   search.json→ %s", OUTPUT_DIR / 'search.json')
     for p in posts:
         tags_str = ', '.join(p['meta']['tags']) if p['meta']['tags'] else 'بدون تگ'
-        print(f"   {p['meta']['title']} [{tags_str}]")
+        log.info("   %s [%s]", p['meta']['title'], tags_str)
     for tag_name in sorted(tag_index.keys()):
         slug = tag_slug(tag_name)
-        print(f"   تگ #{tag_name} → {BASE}/tags/{slug}/")
+        log.info("   تگ #%s → %s/tags/%s/", tag_name, BASE, slug)

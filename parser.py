@@ -90,9 +90,9 @@ def convert_custom_boxes(md_text):
             title = m.group(1).strip() or dt
             contents = m.group(2).strip()
             return (
-                f'\n<details class="box {cc}">\n'
+                f'\n<details class="box {cc}" markdown="1">\n'
                 f'<summary>{dt}: {title}</summary>\n'
-                f'<div class="box-content">\n\n{contents}\n\n</div>\n'
+                f'<div class="box-content" markdown="1">\n\n{contents}\n\n</div>\n'
                 f'</details>\n'
             )
 
@@ -110,5 +110,6 @@ def md_to_html(md_text):
         'markdown.extensions.nl2br',
         'markdown.extensions.smarty',
         'markdown.extensions.extra',
+        'markdown.extensions.md_in_html',
     ]
     return markdown.markdown(md_text, extensions=extensions)
