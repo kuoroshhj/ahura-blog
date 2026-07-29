@@ -1,0 +1,21 @@
+<div class="wrp">
+
+<div class="breadcrumb">
+  <ul class="breadcrumb-list">
+    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
+    <li class="breadcrumb-item"><a href="/tags/" class="breadcrumb-link">برچسب‌ها</a></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-current">#{{ TAG_NAME }}</span></li>
+  </ul>
+</div>
+
+<h1 style="margin-bottom:5px;font-size:24px;color:var(--c-text-main)">🏷️ #{{ TAG_NAME }}</h1>
+<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px">{{ POST_COUNT }} پست با این برچسب</p>
+
+{{ TAG_POSTS }}
+
+<div style="text-align:center;margin-top:20px;padding:10px">
+  <a href="/tags/" style="font-size:13px;color:var(--c-text-link)">← همه برچسب‌ها</a>
+</div>
+</div>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{ TITLE }}</title>
+<link rel="stylesheet" href="/assets/css/structure.css" />
+<link rel="stylesheet" href="/assets/css/style.css" />
+<link rel="stylesheet" href="/assets/css/threads.css" />
+</head>
+<body class="theme-dark">
+{{ SVGS }}
+
+<header class="flW aliI-CE jusCo-SP wrp">
+  <a href="/" class="c-box aliI-CE">
+    <div class="svg-cont" style="background:#e94560;border-color:#e94560"><svg style="color:#fff"><use href="#_EDIT_ICON"/></svg></div>
+    <p style="font-weight:700;margin-right:8px;color:var(--c-text-main);font-size:16px">Ahura</p>
+  </a>
+  <div class="fl aliI-CE" style="gap:8px">
+    <a href="/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
+      <div class="svg-cont"><svg><use href="#_DOTS_ICON"/></svg></div>
+    </a>
+    <a href="/tags/" class="c-box aliI-CE" data-tooltip-text="برچسب‌ها">
+      <div class="svg-cont"><svg><use href="#_TAG_ICON"/></svg></div>
+    </a>
+    <button onclick="toggleTheme()" class="c-box aliI-CE dark-toggle" data-tooltip-text="تغییر تم" aria-label="تغییر تم دارک/لایت" style="border:none;background:none;cursor:pointer">
+      <div class="svg-cont">
+        <svg id="theme-icon" style="width:22px;height:22px"><use href="#_MOON_ICON"/></svg>
+      </div>
+    </button>
+  </div>
+</header>
+
+<main>
+{{ CONTENT }}
+</main>
+
+<footer class="txt-C wrp">
+  <p style="font-size:13px">© {{ YEAR }} <a href="/" style="color:#e94560">Ahura</a> — ساخته شده با ❤️ و بدون فریم‌ورک</p>
+</footer>
+
+<script src="/assets/js/modal.js"></script>
+<script src="/assets/js/isread.js"></script>
+<script>
+function toggleTheme() {
+  const body = document.body;
+  const html = document.documentElement;
+  const icon = document.querySelector('#theme-icon use');
+  if (body.classList.contains('theme-dark')) {
+    body.classList.remove('theme-dark');
+    html.setAttribute('data-theme', 'light');
+    icon.setAttribute('href', '#_MOON_ICON');
+    localStorage.setItem('theme', 'light');
+  } else {
+    body.classList.add('theme-dark');
+    html.setAttribute('data-theme', 'dark');
+    icon.setAttribute('href', '#_SUN_ICON');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+(function() {
+  const saved = localStorage.getItem('theme');
+  const body = document.body;
+  const html = document.documentElement;
+  const icon = document.querySelector('#theme-icon use');
+  if (!icon) return;
+  if (saved === 'light') {
+    body.classList.remove('theme-dark');
+    html.setAttribute('data-theme', 'light');
+    icon.setAttribute('href', '#_MOON_ICON');
+  } else {
+    body.classList.add('theme-dark');
+    html.setAttribute('data-theme', 'dark');
+    icon.setAttribute('href', '#_SUN_ICON');
+  }
+})();
+</script>
+</body>
+</html>

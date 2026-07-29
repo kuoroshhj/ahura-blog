@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+p {
+	margin: 0.25em 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+img, table, audio {
+	max-width: 100%;
+}
+
+video {
+	width: 100% !important;
+	height: auto !important;
+}
+
+.hr {
+	border: 0 !important;
+	height: 15px;
+	background: transparent !important;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.mrg0, .ul {
+	margin: 0;
+}
+
+.mrg-T10 {
+	margin-top: 10px;
+}
+
+.mrg-T15 {
+	margin-top: 15px;
+}
+
+.ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.fl, .flW, .flRe, .flWRe, .plmc {
+	display: flex;
+}
+
+.flW, .flWRe {
+	flex-wrap: wrap;
+}
+
+.flRe, .flWRe {
+	flex-direction: row-reverse;
+}
+
+.aliI-CE, .plmc {
+	align-items: center;
+}
+
+.jusCo-SP {
+	justify-content: space-between;
+}
+
+.jusCo-CE, .plmc {
+	justify-content: center;
+}
+
+.borOK {
+	border-radius: 50%;
+}
+
+.por {
+	position: relative;
+}
+
+.farhana {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	inset: 0;
+}
+
+.zin5 {
+	z-index: 5;
+}
+
+.txt-C, .plmc {
+	text-align: center;
+}
+
+summary,
+[onclick],
+.clickable {
+	cursor: pointer;
+}
+
+.sonly {
+	position: absolute;
+	font-size: 1px;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.disp-B {
+	display: block;
+}

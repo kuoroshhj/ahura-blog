@@ -1,0 +1,40 @@
+<div class="wrp">
+<div class="breadcrumb">
+  <ul class="breadcrumb-list">
+    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
+    <li class="breadcrumb-item"><a href="/threads/" class="breadcrumb-link">نوشته‌ها</a></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-current">{{ TITLE }}</span></li>
+  </ul>
+</div>
+
+<div class="section-status">
+  <span class="section-status-text">{{ DATE }} — {{ CATEGORY }}</span>
+  {{ STATUS_BADGE }}
+</div>
+
+<div class="thread-detail">
+  <div class="h fl aliI-CE jusCo-SP">
+    <h1 style="font-size:20px;margin:0">{{ TITLE }}</h1>
+    <div class="svg-cont" style="border:none;background:transparent"><svg style="width:20px;height:20px"><use href="#_DOTS_ICON"/></svg></div>
+  </div>
+  <div class="tags-row">{{ TAGS }}</div>
+  <div class="content mdm" style="padding:25px 20px;line-height:2">
+    {{ BODY }}
+  </div>
+  <div class="h f fl aliI-CE jusCo-SP" style="gap:15px">
+    <div class="fl aliI-CE" style="gap:10px">
+      {{ PREV_LINK }}
+      {{ NEXT_LINK }}
+    </div>
+    <a href="/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
+      <div class="svg-cont"><svg><use href="#_DOTS_ICON"/></svg></div>
+    </a>
+  </div>
+</div>
+
+<div class="giscus-section">
+  <p style="font-size:13px;color:var(--c-text-icon);text-align:center">📬 نظرت رو برام بنویس — بیا توی گیت‌هاب!</p>
+</div>
+</div>
