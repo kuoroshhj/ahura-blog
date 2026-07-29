@@ -1006,3 +1006,42 @@ header div .svg-cont {
     padding: 2px 8px;
     border-radius: 8px;
 }
+
+/* ── Search ─────────────────────────────────────────── */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 2px solid var(--c-border-main, #333);
+    border-radius: 12px;
+    background: var(--c-bg-light, #1a1a2e);
+    color: var(--c-text-main);
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color .2s;
+    outline: none;
+}
+.search-input:focus {
+    border-color: #e94560;
+}
+.search-input::placeholder {
+    color: var(--c-text-icon, #666);
+}
+
+.search-results {
+    margin-top: 20px;
+}
+.search-results .thread-item {
+    margin-bottom: 8px;
+}
+.search-no-result {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--c-text-icon, #666);
+    font-size: 16px;
+}

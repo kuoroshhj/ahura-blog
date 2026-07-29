@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ahura — وبلاگ شخصی</title>
+    <link>https://kuoroshhj.github.io/ahura-blog</link>
+    <description>وبلاگ شخصی Ahura — برنامه‌نویسی، هوش مصنوعی، پروژه‌های شخصی</description>
+    <language>fa</language>
+    <lastBuildDate>Wed, 29 Jul 2026 04:35:06 +0000</lastBuildDate>
+    <atom:link href="https://kuoroshhj.github.io/ahura-blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>سلام دنیا! 👋</title>
+      <link>https://kuoroshhj.github.io/ahura-blog/threads/01-salam/</link>
+      <guid>https://kuoroshhj.github.io/ahura-blog/threads/01-salam/</guid>
+      <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
+      <category>عمومی</category>
+      <description>خوش اومدی به وبلاگ من! 🎉
+این اولین پست منه. اینجا می‌نویسم درباره:
+
+برنامه‌نویسی و تکنولوژی
+هوش مصنوعی و عامل‌های هوشمند
+پروژه‌های شخصی
+هر چیزی که یاد می‌گیرم
+
+
+📘 اطلاعات: یه نکته
+
+
+این وبلاگ با یه ژنراتور استاتیک شخصی ساخته شده که خودم نوشتمش!
+
+
+
+
+چرا این وبلاگ؟
+چون به نظرم:
+
+سادگی نهایت پیچیدگی است.
+
+واسه همین این وبلاگ:
+
+بدون هیچ فریم‌ورکی
+فقط HTML + CSS + Vanilla JS
+با قابلیت دارک/لایت مود
+و تمرکز روی محتوا
+
+
+💡 بهترین روش: بهترین روش
+
+
+همیشه ساده شروع کن و بعداً اضافه کن!
+
+
+
+
+خب بیایم بریم س</description>
+    </item>
+    <item>
+      <title>نکات Python که باید بدونی</title>
+      <link>https://kuoroshhj.github.io/ahura-blog/threads/02-python-tips/</link>
+      <guid>https://kuoroshhj.github.io/ahura-blog/threads/02-python-tips/</guid>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 +0000</pubDate>
+      <category>برنامه‌نویسی</category>
+      <description>نکات کاربردی Python 🐍
+1. استفاده از f-strings
+به جای:
+name = &amp;quot;Ahura&amp;quot;
+print(&amp;quot;Hello, &amp;quot; + name + &amp;quot;!&amp;quot;)
+
+
+بنویس:
+name = &amp;quot;Ahura&amp;quot;
+print(f&amp;quot;Hello, {name}!&amp;quot;)
+
+
+2. List Comprehension
+# به جای:
+squares = []
+for x in range(10):
+    squares.append(x ** 2)
+
+# بنویس:
+squares = [x ** 2 for x in range(10)]
+
+
+
+⚠️ هشدار: توجه
+
+
+از list comprehension زیاد استفاده نکن — اگه پیچیده شد، readability رو ببر بالا!
+
+
+
+
+3. zip برای دو لیست هم‌زمان
+names = [&amp;quot;Ali&amp;quot;, &amp;</description>
+    </item>
+    <item>
+      <title>داخل موتور Hugo: چطور یه تم دست‌ساز بسازیم</title>
+      <link>https://kuoroshhj.github.io/ahura-blog/threads/03-hugo-internals/</link>
+      <guid>https://kuoroshhj.github.io/ahura-blog/threads/03-hugo-internals/</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 +0000</pubDate>
+      <category>تکنولوژی</category>
+      <description>Hugo Static Site Generator 🦜
+Hugo یه SSG فوق‌العاده سریع به زبان Go هست.
+چرا Hugo؟
+✅ سرعت بالا
+✅ بدون dependency (یه باینری)
+✅ تمپلیت قدرتمند
+✅ پشتیبانی عالی از Markdown
+
+✏️ تمرین: تمرین
+
+
+سعی کن یه تم Hugo از صفر با CSS دست‌نویس بسازی!
+
+
+
+
+ساختار تمپلیت
+{{ define &amp;quot;main&amp;quot; }}
+&amp;lt;article&amp;gt;
+  &amp;lt;h1&amp;gt;{{ .Title }}&amp;lt;/h1&amp;gt;
+  {{ .Content }}
+&amp;lt;/article&amp;gt;
+{{ end }}
+
+
+
+📘 اطلاعات: نکته فنی
+
+
+در Hugo نسخه 0.164.0 از defer در partialها پشتیبانی میشه
+
+
+
+
+ادامه این پست در دست نوشتن است&amp;he</description>
+    </item>
+    <item>
+      <title>هدف‌های من برای ۲۰۲۶</title>
+      <link>https://kuoroshhj.github.io/ahura-blog/threads/04-goals/</link>
+      <guid>https://kuoroshhj.github.io/ahura-blog/threads/04-goals/</guid>
+      <pubDate>Sun, 26 Jul 2026 00:00:00 +0000</pubDate>
+      <category>شخصی</category>
+      <description>هدف‌های امسال 🎯
+💪 سلامت
+
+[x] ورزش منظم (حداقل ۳ روز در هفته)
+[ ] خواب کافی
+[ ] تغذیه سالم
+
+📚 یادگیری
+
+[x] گذروندن CS50
+[ ] ساختن یه Agent-AI از صفر
+[ ] شرکت در مسابقه کدنویسی
+
+
+📁 پروژه: Agent-AI
+
+
+می‌خوام یه ویدیوی آموزشی درباره Agent-AI بسازم که توضیح بدم چطور کار می‌کنه.
+
+
+
+
+🚀 پروژه‌ها
+
+[x] ساخت این وبلاگ
+[ ] انتشار یه ابزار CLI
+
+
+&amp;ldquo;تنها محدودیت، خودت هستی&amp;rdquo; 💪
+</description>
+    </item>
+  </channel>
+</rss>

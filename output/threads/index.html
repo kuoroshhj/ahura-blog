@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="/assets/css/structure.css" />
 <link rel="stylesheet" href="/assets/css/style.css" />
 <link rel="stylesheet" href="/assets/css/threads.css" />
+<link rel="alternate" type="application/rss+xml" title="Ahura — RSS Feed" href="/rss.xml" />
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 </head>
 <body class="theme-dark">
 <svg style="display:none">
@@ -34,6 +36,9 @@
     <a href="/tags/" class="c-box aliI-CE" data-tooltip-text="برچسب‌ها">
       <div class="svg-cont"><svg><use href="#_TAG_ICON"/></svg></div>
     </a>
+    <a href="/search/" class="c-box aliI-CE" data-tooltip-text="جستجو">
+      <div class="svg-cont"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    </a>
     <button onclick="toggleTheme()" class="c-box aliI-CE dark-toggle" data-tooltip-text="تغییر تم" aria-label="تغییر تم دارک/لایت" style="border:none;background:none;cursor:pointer">
       <div class="svg-cont">
         <svg id="theme-icon" style="width:22px;height:22px"><use href="#_MOON_ICON"/></svg>
@@ -45,7 +50,7 @@
 <main>
 <div class="wrp">
 <h1 style="margin-bottom:5px;font-size:24px;color:var(--c-text-main)">📝 همه نوشته‌ها</h1>
-<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px">2026-07-29 04:24 — مرتب شده بر اساس تاریخ</p>
+<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px">2026-07-29 04:35 — مرتب شده بر اساس تاریخ</p>
 
 
         <div class="thread-group">
@@ -121,6 +126,7 @@
 
 <script src="/assets/js/modal.js"></script>
 <script src="/assets/js/isread.js"></script>
+<script src="/assets/js/search.js"></script>
 <script>
 function toggleTheme() {
   const body = document.body;

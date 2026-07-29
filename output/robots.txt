@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kuoroshhj.github.io/ahura-blog/sitemap.xml

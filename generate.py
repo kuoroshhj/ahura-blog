@@ -18,6 +18,8 @@ OUTPUT_DIR = BASE_DIR / "output"
 TEMPLATE_DIR = BASE_DIR / "template"
 ASSETS_DIR = BASE_DIR / "assets"
 
+SITE_URL = "https://kuoroshhj.github.io/ahura-blog"
+
 
 # ─── helpers ──────────────────────────────────────────────────────────
 
@@ -129,6 +131,7 @@ def load_templates():
         'detail': read_file(TEMPLATE_DIR / "thread-detail-body.html"),
         'tags': read_file(TEMPLATE_DIR / "tags-body.html"),
         'tag_detail': read_file(TEMPLATE_DIR / "tag-detail-body.html"),
+        'search': read_file(TEMPLATE_DIR / "search-body.html"),
     }
 
 
@@ -165,6 +168,93 @@ def tag_slug(tag):
     slug = tag.strip().replace(' ', '-').replace('‌', '-')
     slug = re.sub(r'[^\w\-\u0600-\u06FF]', '', slug)
     return slug or 'untitled'
+
+
+def generate_rss(posts):
+    """ساخت فایل RSS 2.0 از پست‌ها"""
+    items = ''
+    for p in posts:
+        m = p['meta']
+        url = f"{SITE_URL}/threads/{m['slug']}/"
+        desc = re.sub(r'<[^>]+>', '', p['body'])
+        desc = desc[:500].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+        items += f'''    <item>
+      <title>{m['title']}</title>
+      <link>{url}</link>
+      <guid>{url}</guid>
+      <pubDate>{m['date'].strftime('%a, %d %b %Y %H:%M:%S +0000')}</pubDate>
+      <category>{m['category']}</category>
+      <description>{desc}</description>
+    </item>
+'''
+    rss = f'''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ahura — وبلاگ شخصی</title>
+    <link>{SITE_URL}</link>
+    <description>وبلاگ شخصی Ahura — برنامه‌نویسی، هوش مصنوعی، پروژه‌های شخصی</description>
+    <language>fa</language>
+    <lastBuildDate>{datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')}</lastBuildDate>
+    <atom:link href="{SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
+{items}  </channel>
+</rss>'''
+    return rss
+
+
+def generate_sitemap(posts, tag_index):
+    """ساخت Sitemap.xml"""
+    urls = [f'''  <url>
+    <loc>{SITE_URL}/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>{SITE_URL}/threads/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>{SITE_URL}/tags/</loc>
+    <priority>0.7</priority>
+  </url>
+''']
+    for p in posts:
+        m = p['meta']
+        urls.append(f'''  <url>
+    <loc>{SITE_URL}/threads/{m['slug']}/</loc>
+    <lastmod>{m['date'].strftime('%Y-%m-%d')}</lastmod>
+    <priority>0.6</priority>
+  </url>
+''')
+    for tag_name in sorted(tag_index.keys()):
+        slug = tag_slug(tag_name)
+        urls.append(f'''  <url>
+    <loc>{SITE_URL}/tags/{slug}/</loc>
+    <priority>0.5</priority>
+  </url>
+''')
+    sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{"".join(urls)}</urlset>'''
+    return sitemap
+
+
+def generate_search_json(posts):
+    """ساخت search.json برای جستجوی آفلاین"""
+    data = []
+    for p in posts:
+        m = p['meta']
+        # پاک کردن تگ‌های HTML از بدنه برای جستجو
+        clean_body = re.sub(r'<[^>]+>', '', p['body'])
+        clean_body = clean_body[:2000]  # محدودیت حجم
+        data.append({
+            't': m['title'],
+            'c': m['category'],
+            'g': m['tags'],
+            's': m['status'],
+            'u': m['slug'],
+            'b': clean_body,
+        })
+    import json
+    return json.dumps(data, ensure_ascii=False, indent=2)
 
 
 # ─── build ───────────────────────────────────────────────────────────
@@ -352,6 +442,29 @@ def build_site():
             YEAR=year_str,
         ))
 
+    # ── RSS ────────────────────────────────────────────────────────
+    print("\n📡  تولید RSS Feed …")
+    write_file(OUTPUT_DIR / "rss.xml", generate_rss(posts))
+    print("   → output/rss.xml")
+
+    # ── Sitemap ────────────────────────────────────────────────────
+    print("\n🗺️  تولید Sitemap.xml …")
+    write_file(OUTPUT_DIR / "sitemap.xml", generate_sitemap(posts, tag_index))
+    write_file(OUTPUT_DIR / "robots.txt", "User-agent: *\nAllow: /\nSitemap: " + SITE_URL + "/sitemap.xml\n")
+
+    # ── Search JSON ────────────────────────────────────────────────
+    print("\n🔍  تولید search.json …")
+    write_file(OUTPUT_DIR / "search.json", generate_search_json(posts))
+
+    # ── Search Page ────────────────────────────────────────────────
+    search_body = tpl['search']
+    write_file(OUTPUT_DIR / "search" / "index.html", fill(tpl['base'],
+        SVGS=tpl['svgs'],
+        TITLE="جستجو — Ahura",
+        CONTENT=search_body,
+        YEAR=year_str,
+    ))
+
     # ── copy assets ────────────────────────────────────────────────
     print("\n📦  کپی assets …")
     copy_assets()
@@ -360,6 +473,10 @@ def build_site():
     print(f"   index      → {OUTPUT_DIR / 'index.html'}")
     print(f"   threads    → {OUTPUT_DIR / 'threads' / 'index.html'}")
     print(f"   tags       → {OUTPUT_DIR / 'tags' / 'index.html'}")
+    print(f"   search     → {OUTPUT_DIR / 'search' / 'index.html'}")
+    print(f"   rss        → {OUTPUT_DIR / 'rss.xml'}")
+    print(f"   sitemap    → {OUTPUT_DIR / 'sitemap.xml'}")
+    print(f"   search.json→ {OUTPUT_DIR / 'search.json'}")
     for p in posts:
         tags_str = ', '.join(p['meta']['tags']) if p['meta']['tags'] else 'بدون تگ'
         print(f"   {p['meta']['title']} [{tags_str}]")
@@ -582,6 +699,8 @@ def ensure_templates():
 <link rel="stylesheet" href="/assets/css/structure.css" />
 <link rel="stylesheet" href="/assets/css/style.css" />
 <link rel="stylesheet" href="/assets/css/threads.css" />
+<link rel="alternate" type="application/rss+xml" title="Ahura — RSS Feed" href="/rss.xml" />
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 </head>
 <body class="theme-dark">
 {{ SVGS }}
@@ -597,6 +716,9 @@ def ensure_templates():
     </a>
     <a href="/tags/" class="c-box aliI-CE" data-tooltip-text="برچسب‌ها">
       <div class="svg-cont"><svg><use href="#_TAG_ICON"/></svg></div>
+    </a>
+    <a href="/search/" class="c-box aliI-CE" data-tooltip-text="جستجو">
+      <div class="svg-cont"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
     </a>
     <button onclick="toggleTheme()" class="c-box aliI-CE dark-toggle" data-tooltip-text="تغییر تم" aria-label="تغییر تم دارک/لایت" style="border:none;background:none;cursor:pointer">
       <div class="svg-cont">
@@ -616,6 +738,7 @@ def ensure_templates():
 
 <script src="/assets/js/modal.js"></script>
 <script src="/assets/js/isread.js"></script>
+<script src="/assets/js/search.js"></script>
 <script>
 function toggleTheme() {
   const body = document.body;
@@ -755,6 +878,29 @@ function toggleTheme() {
 
 <div style="text-align:center;margin-top:20px;padding:10px">
   <a href="/tags/" style="font-size:13px;color:var(--c-text-link)">← همه برچسب‌ها</a>
+</div>
+</div>''')
+
+        write_file(t / "search-body.html", '''<div class="wrp">
+
+<div class="breadcrumb">
+  <ul class="breadcrumb-list">
+    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-current">جستجو</span></li>
+  </ul>
+</div>
+
+<h1 style="margin-bottom:5px;font-size:24px;color:var(--c-text-main)">🔍 جستجو</h1>
+<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px" id="search-status">در حال بارگذاری...</p>
+
+<div class="search-container">
+  <input type="text" id="search-input" class="search-input" placeholder="در حال بارگذاری..." disabled autofocus />
+  <div id="search-results" class="search-results"></div>
+</div>
+
+<div style="text-align:center;margin-top:20px;padding:10px">
+  <a href="/" style="font-size:13px;color:var(--c-text-link)">← برگشت به صفحه اصلی</a>
 </div>
 </div>''')
 

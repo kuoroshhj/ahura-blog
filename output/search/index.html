@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>#شروع — Ahura</title>
+<title>جستجو — Ahura</title>
 <link rel="stylesheet" href="/assets/css/structure.css" />
 <link rel="stylesheet" href="/assets/css/style.css" />
 <link rel="stylesheet" href="/assets/css/threads.css" />
@@ -54,26 +54,20 @@
   <ul class="breadcrumb-list">
     <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
     <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
-    <li class="breadcrumb-item"><a href="/tags/" class="breadcrumb-link">برچسب‌ها</a></li>
-    <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
-    <li class="breadcrumb-item"><span class="breadcrumb-current">#شروع</span></li>
+    <li class="breadcrumb-item"><span class="breadcrumb-current">جستجو</span></li>
   </ul>
 </div>
 
-<h1 style="margin-bottom:5px;font-size:24px;color:var(--c-text-main)">🏷️ #شروع</h1>
-<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px">1 پست با این برچسب</p>
+<h1 style="margin-bottom:5px;font-size:24px;color:var(--c-text-main)">🔍 جستجو</h1>
+<p style="color:var(--c-text-icon);font-size:13px;margin-bottom:25px" id="search-status">در حال بارگذاری...</p>
 
-
-            <a href="/threads/01-salam/" class="thread-item fl aliI-CE">
-                <div class="thread-number-ini">#1</div>
-                <h2>سلام دنیا! 👋</h2>
-                <div class="actions fl aliI-CE">
-                    <span class="status-badge status-done">✅ انجام شده</span>
-                </div>
-            </a>
+<div class="search-container">
+  <input type="text" id="search-input" class="search-input" placeholder="در حال بارگذاری..." disabled autofocus />
+  <div id="search-results" class="search-results"></div>
+</div>
 
 <div style="text-align:center;margin-top:20px;padding:10px">
-  <a href="/tags/" style="font-size:13px;color:var(--c-text-link)">← همه برچسب‌ها</a>
+  <a href="/" style="font-size:13px;color:var(--c-text-link)">← برگشت به صفحه اصلی</a>
 </div>
 </div>
 </main>
