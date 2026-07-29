@@ -571,7 +571,7 @@ def build_site():
         cat_posts = groups[cat_name]
         items = ''
         for idx, p in enumerate(cat_posts, 1):
-            items += render_thread_item(p, idx, base=BASE, with_tags=True)
+            items += render_thread_item(p, idx, base=BASE, with_tags=False)
         list_items += f'''
         <div class="thread-group">
             <div class="h fl aliI-CE jusCo-SP">
