@@ -54,6 +54,16 @@ def copy_assets():
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(item, dest)
 
+    # Copy admin folder for Decap CMS
+    ADMIN_DIR = BASE_DIR / "admin"
+    if ADMIN_DIR.exists():
+        for item in ADMIN_DIR.rglob('*'):
+            if item.is_file():
+                rel = item.relative_to(ADMIN_DIR)
+                dest = OUTPUT_DIR / "admin" / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(item, dest)
+
 
 def load_templates():
     return {

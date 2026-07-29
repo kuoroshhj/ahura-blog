@@ -1,0 +1,41 @@
+# Decap CMS Configuration for ahura-blog
+# Deploy: push to repo, access at https://kuoroshhj.github.io/ahura-blog/admin/
+# Backend: GitHub OAuth via git-gateway (needs Cloudflare Worker or Netlify Identity)
+
+site_url: "https://kuoroshhj.github.io/ahura-blog/"
+admin:
+  path: "/admin"
+
+# GitHub OAuth backend (requires git-gateway worker)
+backend:
+  name: git-gateway
+  branch: main
+  repo: kuoroshhj/ahura-blog
+
+# Local development (uncomment for local testing with npx decap-server)
+# local_backend: true
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "posts"
+    label: "پست‌ها"
+    folder: "content"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "عنوان", name: "title", widget: "string", required: true}
+      - {label: "تاریخ", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true}
+      - {label: "دسته‌بندی", name: "category", widget: "select", options: ["عمومی", "برنامه‌نویسی", "تکنولوژی", "شخصی"], required: true}
+      - {label: "برچسب‌ها", name: "tags", widget: "list", required: false}
+      - {label: "وضعیت", name: "status", widget: "select", options: ["done", "running"], default: "done", required: false}
+      - {label: "محتوای پست", name: "body", widget: "markdown", required: true}
+
+# Optional: editorial workflow (draft → review → publish)
+# publish_mode: editorial_workflow
+
+# Slug sanitization (ASCII, spaces → hyphens)
+slug:
+  encoding: "ascii"
+  sanitize_replacement: "-"
