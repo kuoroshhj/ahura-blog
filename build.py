@@ -556,7 +556,7 @@ def build_site():
     OUTPUT_DIR.mkdir(parents=True)
 
     # Safe keys for fill() — HTML content that must NOT be escaped
-    RAW = {'SVGS', 'CONTENT', 'BASE', 'CATEGORIES', 'STATUS_BADGE',
+    RAW = {'SVGS', 'CONTENT', 'BASE', 'CATEGORIES',
            'TAGS', 'BODY', 'PREV_LINK', 'NEXT_LINK', 'TAG_POSTS', 'DESC', 'OG_URL'}
 
     # ── sort by category order ────────────────────────────────────
@@ -603,8 +603,6 @@ def build_site():
         m = p['meta']
         desc_text = get_description(p['body'])
         og_url = f"{SITE_URL}/threads/{p['slug']}/"
-        status_cls = 'done' if m['status'] == 'done' else 'running'
-        status_txt = '✅ انجام شده' if m['status'] == 'done' else '⏳ در حال انجام'
         tags_html = render_tags_html(m['tags'], base=BASE)
 
         prev_link = ''
@@ -626,7 +624,6 @@ def build_site():
             BASE=BASE,
             TITLE=m['title'],
             BODY=p['body'],
-            STATUS_BADGE=f'<span class="status-badge status-{status_cls}">{status_txt}</span>',
             DATE=m['date'].strftime('%Y-%m-%d'),
             CATEGORY=m['category'],
             TAGS=tags_html,

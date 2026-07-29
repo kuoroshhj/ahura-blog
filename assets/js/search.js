@@ -69,8 +69,6 @@
 
       results.innerHTML = scored.map(s => {
         const p = s.item;
-        const badgeCls = p.s === 'done' ? 'status-done' : 'status-running';
-        const badgeTxt = p.s === 'done' ? '✅ انجام شده' : '⏳ در حال انجام';
         const tagsHtml = p.g.map(t => `<span class="tag-badge" style="font-size:11px;padding:2px 8px">${t}</span>`).join('');
         const url = p.u.startsWith('/') ? BASE + p.u : p.u;
         return `<a href="${url}" class="thread-item fl aliI-CE">
@@ -78,7 +76,6 @@
         <h2>${p.t}</h2>
         <div class="actions fl aliI-CE">
           ${tagsHtml}
-          <span class="status-badge ${badgeCls}">${badgeTxt}</span>
         </div>
       </a>`;
       }).join('');

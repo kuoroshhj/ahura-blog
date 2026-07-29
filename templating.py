@@ -28,8 +28,6 @@ def render_tags_html(tags_list, base=''):
 def render_thread_item(post, idx, base='', with_tags=True):
     """ساخت thread-item یکسان برای لیست اصلی و صفحات تگ"""
     m = post['meta']
-    badge_cls = 'status-done' if m['status'] == 'done' else 'status-running'
-    badge_txt = '\u2705 \u0627\u0646\u062c\u0627\u0645 \u0634\u062f\u0647' if m['status'] == 'done' else '\u23f3 \u062f\u0631 \u062d\u0627\u0644 \u0627\u0646\u062c\u0627\u0645'
     tags_html = render_tags_html(m['tags'], base=base) if with_tags else ''
     return f'''
             <a href="{base}/threads/{html_escape(post['slug'])}/" class="thread-item fl aliI-CE">
@@ -37,7 +35,6 @@ def render_thread_item(post, idx, base='', with_tags=True):
                 <h2>{html_escape(m['title'])}</h2>
                 <div class="actions fl aliI-CE">
                     {tags_html}
-                    <span class="status-badge {badge_cls}">{badge_txt}</span>
                 </div>
             </a>'''
 
