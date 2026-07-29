@@ -25,43 +25,43 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 section.banner {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  color: #e0e0e0;
+  background: antiquewhite;
+  color: #333;
 }
 
 .banner .wrapper {
-  border-color: #2a2a4a;
+  border-color: #efddc5;
 }
 
 .banner h1.logo-txt {
-  color: #e94560;
+  color: brown;
 }
 
 .banner .subtitle {
-  color: #a0a0c0;
+  color: #666;
   font-size: 14px;
 }
 
 .cta-button {
   display: inline-block;
   padding: 10px 30px;
-  background: #e94560;
-  border-radius: 8px;
+  background: #ffdfb4;
+  border-radius: 6px;
   font-weight: 600;
-  color: #fff;
-  border: none;
+  color: #000;
+  border: 2px solid #b6a58f;
   transition: all .2s ease;
 }
 
 .cta-button:hover {
-  background: #ff6b81;
-  transform: translateY(-2px);
+  background: #f5d59a;
+  text-decoration: underline;
 }
 
 .wrapper {
   width: 600px;
   min-height: 100vh;
-  border: 2px solid #2a2a4a;
+  border: 2px solid #efddc5;
   margin: 0 auto;
   padding: 40px 15px 15px;
   flex-direction: column;
@@ -69,7 +69,7 @@ section.banner {
 }
 
 .site-title {
-  color: #e94560;
+  color: brown;
   font-size: 28px;
 }
 
@@ -78,7 +78,7 @@ section.banner {
 }
 
 .hero-text {
-  color: #b0b0d0;
+  color: #555;
   line-height: 1.8;
   font-size: 15px;
 }
@@ -95,17 +95,17 @@ section.banner {
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  background: #2a2a4a;
+  background: #f7f7f7;
   border-radius: 6px;
-  color: #c0c0e0;
+  color: #4c4c4c;
   font-size: 13px;
   font-weight: 600;
   transition: all .2s ease;
 }
 
 .social-links a:hover {
-  background: #e94560;
-  color: #fff;
+  background: #ffdfb4;
+  color: #000;
   text-decoration: none;
 }
 
@@ -122,7 +122,7 @@ footer.txt-C.wrp p {
 }
 
 footer.txt-C.wrp p a {
-  color: #e94560;
+  color: brown;
 }
 
 [data-modal].disabled {
@@ -142,25 +142,26 @@ footer.txt-C.wrp p a {
 }
 
 /* Dark mode overrides for dark theme */
-[data-theme="dark"] section.banner {
-  background: linear-gradient(135deg, #0d0d1a 0%, #111827 50%, #0a1a30 100%);
+.theme-dark section.banner {
+  background: #1a1c1d;
 }
 
-[data-theme="dark"] .banner .wrapper {
-  border-color: #1e1e3a;
+.theme-dark .banner .wrapper {
+  border-color: #333;
 }
 
-[data-theme="dark"] .cta-button {
-  background: #e94560;
-  color: #fff;
+.theme-dark .cta-button {
+  background: #2a2d2f;
+  color: #e6e6e6;
+  border-color: #444;
 }
 
-[data-theme="dark"] .cta-button:hover {
-  background: #ff6b81;
+.theme-dark .cta-button:hover {
+  background: #333;
 }
 
-[data-theme="dark"] .social-links a {
-  background: #1e1e3a;
+.theme-dark .social-links a {
+  background: #242728;
 }
 
 @media (max-width:605px) {
