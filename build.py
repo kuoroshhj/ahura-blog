@@ -38,8 +38,9 @@ CATEGORY_ORDER = ["عمومی", "برنامه‌نویسی", "تکنولوژی",
 
 
 def get_description(body_html):
-    """استخراج توضیحات (حدود ۱۶۰ کاراکتر) از HTML بدن پست"""
+    """استخراج توضیحات (حدود ۱۶۰ کاراکتر) از HTML بدن پست — بدون newline"""
     clean = re.sub(r'<[^>]+>', '', body_html).strip()
+    clean = ' '.join(clean.split())  # collapse whitespace
     return clean[:160].rsplit(' ', 1)[0] if len(clean) > 160 else clean
 
 
@@ -721,13 +722,14 @@ def build_site():
     write_file(OUTPUT_DIR / "search.json", generate_search_json(posts, base=BASE))
 
     # ── Search Page ──────────────────────────────────────────────
+    search_body = fill(tpl['search'], safe_keys=RAW, BASE=BASE)
     write_file(OUTPUT_DIR / "search" / "index.html", fill(tpl['base'], safe_keys=RAW,
         BASE=BASE,
         SVGS=tpl['svgs'],
         TITLE="جستجو — Ahura",
         DESC="جستجوی نوشته‌های وبلاگ Ahura",
         OG_URL=f"{SITE_URL}/search/",
-        CONTENT=tpl['search'],
+        CONTENT=search_body,
         YEAR=year_str,
     ))
 

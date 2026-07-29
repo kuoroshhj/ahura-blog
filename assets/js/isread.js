@@ -2,7 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
 const STORAGE_KEY = "threads-read"
 
 function getReadThreads(){
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY)
+        return raw ? JSON.parse(raw) : []
+    } catch {
+        return []
+    }
 }
 
 function saveReadThreads(list){
@@ -51,11 +56,13 @@ function openReadCongrats(count){
     const btn = document.getElementById("mark-read-btn")
     const congratsTitle = btn?.dataset?.congratsTitle || "تبریک 🎉"
     const congratsText = btn?.dataset?.congratsText || `تا الان ${count} ترد خوندی 👏`
-    const congratsImage = btn?.dataset?.congratsImage || "{{ .Site.Params.thread.congrats_image }}"
+    const congratsImage = btn?.dataset?.congratsImage || ""
 
     modalTitle.textContent = congratsTitle
     modalText.textContent = congratsText.replace("{count}", count)
-    modalMedia.innerHTML = `<img src="${congratsImage}">`
+    if(congratsImage && modalMedia){
+        modalMedia.innerHTML = `<img src="${congratsImage}">`
+    }
 
     if(modalCopy){
         modalCopy.classList.add("hidden")

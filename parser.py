@@ -89,12 +89,16 @@ def convert_custom_boxes(md_text):
             re.DOTALL | re.IGNORECASE
         )
 
-        def replacer(m, dt=default_title, cc=css_class):
-            title = m.group(1).strip() or dt
+        def replacer(m, cc=css_class):
+            raw_title = m.group(1).strip()
             contents = m.group(2).strip()
+            if raw_title:
+                summary = f'{default_title}: {raw_title}'
+            else:
+                summary = default_title
             return (
                 f'\n<details class="box {cc}" markdown="1">\n'
-                f'<summary>{dt}: {title}</summary>\n'
+                f'<summary>{summary}</summary>\n'
                 f'<div class="box-content" markdown="1">\n\n{contents}\n\n</div>\n'
                 f'</details>\n'
             )
