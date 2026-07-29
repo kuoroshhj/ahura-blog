@@ -14,9 +14,11 @@
     CMS.init({
       config: {
         backend: {
-          name: 'git-gateway',
+          name: 'github',
           branch: 'main',
-          repo: 'kuoroshhj/ahura-blog'
+          repo: 'kuoroshhj/ahura-blog',
+          base_url: 'https://ahura-blog-oauth.YOUR_SUBDOMAIN.workers.dev',
+          auth_endpoint: 'auth'
         }
       }
     });

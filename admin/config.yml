@@ -6,11 +6,13 @@ site_url: "https://kuoroshhj.github.io/ahura-blog/"
 admin:
   path: "/admin"
 
-# GitHub OAuth backend (requires git-gateway worker)
+# GitHub OAuth backend (via Cloudflare Worker proxy)
 backend:
-  name: git-gateway
+  name: github
   branch: main
   repo: kuoroshhj/ahura-blog
+  base_url: "https://ahura-blog-oauth.YOUR_SUBDOMAIN.workers.dev"
+  auth_endpoint: "auth"
 
 # Local development (uncomment for local testing with npx decap-server)
 # local_backend: true
