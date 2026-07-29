@@ -4,28 +4,28 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{{ TITLE }}</title>
-<link rel="stylesheet" href="/assets/css/structure.css" />
-<link rel="stylesheet" href="/assets/css/style.css" />
-<link rel="stylesheet" href="/assets/css/threads.css" />
-<link rel="alternate" type="application/rss+xml" title="Ahura — RSS Feed" href="/rss.xml" />
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<link rel="stylesheet" href="{{ BASE }}/assets/css/structure.css" />
+<link rel="stylesheet" href="{{ BASE }}/assets/css/style.css" />
+<link rel="stylesheet" href="{{ BASE }}/assets/css/threads.css" />
+<link rel="alternate" type="application/rss+xml" title="Ahura — RSS Feed" href="{{ BASE }}/rss.xml" />
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ BASE }}/sitemap.xml" />
 </head>
 <body class="theme-dark">
 {{ SVGS }}
 
 <header class="flW aliI-CE jusCo-SP wrp">
-  <a href="/" class="c-box aliI-CE">
+  <a href="{{ BASE }}/" class="c-box aliI-CE">
     <div class="svg-cont" style="background:#e94560;border-color:#e94560"><svg style="color:#fff"><use href="#_EDIT_ICON"/></svg></div>
     <p style="font-weight:700;margin-right:8px;color:var(--c-text-main);font-size:16px">Ahura</p>
   </a>
   <div class="fl aliI-CE" style="gap:8px">
-    <a href="/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
+    <a href="{{ BASE }}/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
       <div class="svg-cont"><svg><use href="#_DOTS_ICON"/></svg></div>
     </a>
-    <a href="/tags/" class="c-box aliI-CE" data-tooltip-text="برچسب‌ها">
+    <a href="{{ BASE }}/tags/" class="c-box aliI-CE" data-tooltip-text="برچسب‌ها">
       <div class="svg-cont"><svg><use href="#_TAG_ICON"/></svg></div>
     </a>
-    <a href="/search/" class="c-box aliI-CE" data-tooltip-text="جستجو">
+    <a href="{{ BASE }}/search/" class="c-box aliI-CE" data-tooltip-text="جستجو">
       <div class="svg-cont"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
     </a>
     <button onclick="toggleTheme()" class="c-box aliI-CE dark-toggle" data-tooltip-text="تغییر تم" aria-label="تغییر تم دارک/لایت" style="border:none;background:none;cursor:pointer">
@@ -41,12 +41,12 @@
 </main>
 
 <footer class="txt-C wrp">
-  <p style="font-size:13px">© {{ YEAR }} <a href="/" style="color:#e94560">Ahura</a> — ساخته شده با ❤️ و بدون فریم‌ورک</p>
+  <p style="font-size:13px">© {{ YEAR }} <a href="{{ BASE }}/" style="color:#e94560">Ahura</a> — ساخته شده با ❤️ و بدون فریم‌ورک</p>
 </footer>
 
-<script src="/assets/js/modal.js"></script>
-<script src="/assets/js/isread.js"></script>
-<script src="/assets/js/search.js"></script>
+<script src="{{ BASE }}/assets/js/modal.js"></script>
+<script src="{{ BASE }}/assets/js/isread.js"></script>
+<script src="{{ BASE }}/assets/js/search.js"></script>
 <script>
 function toggleTheme() {
   const body = document.body;

@@ -8,12 +8,13 @@
   const input = document.getElementById('search-input');
   const results = document.getElementById('search-results');
   const status = document.getElementById('search-status');
+  const BASE = input ? (input.getAttribute('data-base') || '') : '';
   let data = null;
 
   if (!input || !results) return;
 
   // بارگذاری دیتای جستجو
-  fetch('/search.json')
+  fetch(BASE + '/search.json')
     .then(r => {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
@@ -68,7 +69,8 @@
       const badgeCls = p.s === 'done' ? 'status-done' : 'status-running';
       const badgeTxt = p.s === 'done' ? '✅ انجام شده' : '⏳ در حال انجام';
       const tagsHtml = p.g.map(t => `<span class="tag-badge" style="font-size:11px;padding:2px 8px">${t}</span>`).join('');
-      return `<a href="/threads/${p.u}/" class="thread-item fl aliI-CE">
+      const url = p.u.startsWith('/') ? BASE + p.u : p.u;
+      return `<a href="${url}" class="thread-item fl aliI-CE">
         <div class="thread-number-ini">#</div>
         <h2>${p.t}</h2>
         <div class="actions fl aliI-CE">

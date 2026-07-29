@@ -2,9 +2,9 @@
 
 <div class="breadcrumb">
   <ul class="breadcrumb-list">
-    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
+    <li class="breadcrumb-item"><a href="{{ BASE }}/" class="breadcrumb-link">خانه</a></li>
     <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
-    <li class="breadcrumb-item"><a href="/tags/" class="breadcrumb-link">برچسب‌ها</a></li>
+    <li class="breadcrumb-item"><a href="{{ BASE }}/tags/" class="breadcrumb-link">برچسب‌ها</a></li>
     <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
     <li class="breadcrumb-item"><span class="breadcrumb-current">#{{ TAG_NAME }}</span></li>
   </ul>
@@ -16,6 +16,6 @@
 {{ TAG_POSTS }}
 
 <div style="text-align:center;margin-top:20px;padding:10px">
-  <a href="/tags/" style="font-size:13px;color:var(--c-text-link)">← همه برچسب‌ها</a>
+  <a href="{{ BASE }}/tags/" style="font-size:13px;color:var(--c-text-link)">← همه برچسب‌ها</a>
 </div>
 </div>

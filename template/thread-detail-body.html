@@ -1,9 +1,9 @@
 <div class="wrp">
 <div class="breadcrumb">
   <ul class="breadcrumb-list">
-    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">خانه</a></li>
+    <li class="breadcrumb-item"><a href="{{ BASE }}/" class="breadcrumb-link">خانه</a></li>
     <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
-    <li class="breadcrumb-item"><a href="/threads/" class="breadcrumb-link">نوشته‌ها</a></li>
+    <li class="breadcrumb-item"><a href="{{ BASE }}/threads/" class="breadcrumb-link">نوشته‌ها</a></li>
     <li class="breadcrumb-item"><span class="breadcrumb-separator">←</span></li>
     <li class="breadcrumb-item"><span class="breadcrumb-current">{{ TITLE }}</span></li>
   </ul>
@@ -28,7 +28,7 @@
       {{ PREV_LINK }}
       {{ NEXT_LINK }}
     </div>
-    <a href="/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
+    <a href="{{ BASE }}/threads/" class="c-box aliI-CE" data-tooltip-text="همه نوشته‌ها">
       <div class="svg-cont"><svg><use href="#_DOTS_ICON"/></svg></div>
     </a>
   </div>

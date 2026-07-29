@@ -8,7 +8,7 @@
       "وبلاگ"
     ],
     "s": "done",
-    "u": "01-salam",
+    "u": "/threads/01-salam/",
     "b": "خوش اومدی به وبلاگ من! 🎉\nاین اولین پست منه. اینجا می‌نویسم درباره:\n\nبرنامه‌نویسی و تکنولوژی\nهوش مصنوعی و عامل‌های هوشمند\nپروژه‌های شخصی\nهر چیزی که یاد می‌گیرم\n\n\n📘 اطلاعات: یه نکته\n\n\nاین وبلاگ با یه ژنراتور استاتیک شخصی ساخته شده که خودم نوشتمش!\n\n\n\n\nچرا این وبلاگ؟\nچون به نظرم:\n\nسادگی نهایت پیچیدگی است.\n\nواسه همین این وبلاگ:\n\nبدون هیچ فریم‌ورکی\nفقط HTML + CSS + Vanilla JS\nبا قابلیت دارک/لایت مود\nو تمرکز روی محتوا\n\n\n💡 بهترین روش: بهترین روش\n\n\nهمیشه ساده شروع کن و بعداً اضافه کن!\n\n\n\n\nخب بیایم بریم سراغ پست بعدی! 🚀"
   },
   {
@@ -20,7 +20,7 @@
       "نکات"
     ],
     "s": "done",
-    "u": "02-python-tips",
+    "u": "/threads/02-python-tips/",
     "b": "نکات کاربردی Python 🐍\n1. استفاده از f-strings\nبه جای:\nname = &quot;Ahura&quot;\nprint(&quot;Hello, &quot; + name + &quot;!&quot;)\n\n\nبنویس:\nname = &quot;Ahura&quot;\nprint(f&quot;Hello, {name}!&quot;)\n\n\n2. List Comprehension\n# به جای:\nsquares = []\nfor x in range(10):\n    squares.append(x ** 2)\n\n# بنویس:\nsquares = [x ** 2 for x in range(10)]\n\n\n\n⚠️ هشدار: توجه\n\n\nاز list comprehension زیاد استفاده نکن — اگه پیچیده شد، readability رو ببر بالا!\n\n\n\n\n3. zip برای دو لیست هم‌زمان\nnames = [&quot;Ali&quot;, &quot;Sara&quot;, &quot;Reza&quot;]\nscores = [85, 92, 78]\nfor name, score in zip(names, scores):\n    print(f&quot;{name}: {score}&quot;)\n\n\nادامه داره&hellip; 📝"
   },
   {
@@ -33,7 +33,7 @@
       "وب"
     ],
     "s": "running",
-    "u": "03-hugo-internals",
+    "u": "/threads/03-hugo-internals/",
     "b": "Hugo Static Site Generator 🦜\nHugo یه SSG فوق‌العاده سریع به زبان Go هست.\nچرا Hugo؟\n✅ سرعت بالا\n✅ بدون dependency (یه باینری)\n✅ تمپلیت قدرتمند\n✅ پشتیبانی عالی از Markdown\n\n✏️ تمرین: تمرین\n\n\nسعی کن یه تم Hugo از صفر با CSS دست‌نویس بسازی!\n\n\n\n\nساختار تمپلیت\n{{ define &quot;main&quot; }}\n&lt;article&gt;\n  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;\n  {{ .Content }}\n&lt;/article&gt;\n{{ end }}\n\n\n\n📘 اطلاعات: نکته فنی\n\n\nدر Hugo نسخه 0.164.0 از defer در partialها پشتیبانی میشه\n\n\n\n\nادامه این پست در دست نوشتن است&hellip; ✍️"
   },
   {
@@ -45,7 +45,7 @@
       "۲۰۲۶"
     ],
     "s": "done",
-    "u": "04-goals",
+    "u": "/threads/04-goals/",
     "b": "هدف‌های امسال 🎯\n💪 سلامت\n\n[x] ورزش منظم (حداقل ۳ روز در هفته)\n[ ] خواب کافی\n[ ] تغذیه سالم\n\n📚 یادگیری\n\n[x] گذروندن CS50\n[ ] ساختن یه Agent-AI از صفر\n[ ] شرکت در مسابقه کدنویسی\n\n\n📁 پروژه: Agent-AI\n\n\nمی‌خوام یه ویدیوی آموزشی درباره Agent-AI بسازم که توضیح بدم چطور کار می‌کنه.\n\n\n\n\n🚀 پروژه‌ها\n\n[x] ساخت این وبلاگ\n[ ] انتشار یه ابزار CLI\n\n\n&ldquo;تنها محدودیت، خودت هستی&rdquo; 💪\n"
   }
 ]
