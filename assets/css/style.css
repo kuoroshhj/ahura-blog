@@ -135,37 +135,8 @@ footer.txt-C.wrp p a {
     opacity: 0;
     transform: scale(.9);
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+  @media (max-width:605px) {
+    .banner .wrapper {
+      width: 100%;
+    }
   }
-}
-
-/* Dark mode overrides for dark theme */
-.theme-dark section.banner {
-  background: #1a1c1d;
-}
-
-.theme-dark .banner .wrapper {
-  border-color: #333;
-}
-
-.theme-dark .cta-button {
-  background: #2a2d2f;
-  color: #e6e6e6;
-  border-color: #444;
-}
-
-.theme-dark .cta-button:hover {
-  background: #333;
-}
-
-.theme-dark .social-links a {
-  background: #242728;
-}
-
-@media (max-width:605px) {
-  .banner .wrapper {
-    width: 100%;
-  }
-}

@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script>!function(){var e=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',e||'dark')}();</script>
 <title>{{ TITLE }}</title>
 <meta name="description" content="{{ DESC }}" />
 <meta property="og:title" content="{{ TITLE }}" />
@@ -39,11 +38,6 @@
     <a href="{{ BASE }}/search/" class="c-box aliI-CE" data-tooltip-text="جستجو">
       <div class="svg-cont"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
     </a>
-    <button onclick="toggleTheme()" class="c-box aliI-CE dark-toggle" data-tooltip-text="تغییر تم" aria-label="تغییر تم دارک/لایت" style="border:none;background:none;cursor:pointer">
-      <div class="svg-cont">
-        <svg id="theme-icon" style="width:22px;height:22px"><use href="#_MOON_ICON"/></svg>
-      </div>
-    </button>
   </div>
 </header>
 
@@ -58,26 +52,5 @@
 <script src="{{ BASE }}/assets/js/modal.js"></script>
 <script src="{{ BASE }}/assets/js/isread.js"></script>
 <script src="{{ BASE }}/assets/js/search.js"></script>
-<script>
-function toggleTheme() {
-  var html = document.documentElement;
-  var icon = document.querySelector('#theme-icon use');
-  var isDark = html.getAttribute('data-theme') === 'dark';
-  if (isDark) {
-    html.setAttribute('data-theme', 'light');
-    if (icon) icon.setAttribute('href', '#_MOON_ICON');
-    localStorage.setItem('theme', 'light');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    if (icon) icon.setAttribute('href', '#_SUN_ICON');
-    localStorage.setItem('theme', 'dark');
-  }
-}
-(function(){
-  var t = localStorage.getItem('theme') || 'dark';
-  var icon = document.querySelector('#theme-icon use');
-  if (icon) icon.setAttribute('href', t === 'dark' ? '#_SUN_ICON' : '#_MOON_ICON');
-})();
-</script>
 </body>
 </html>
